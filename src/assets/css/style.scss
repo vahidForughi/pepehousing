@@ -1,0 +1,25 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+body {
+  font-family: futura, Roboto;
+}
+
+.theme--light {
+  div, p, span, strong, h1, h2, h3, h4, h5 {
+    color: #3C3F52;
+  }
+}
+
+.theme--dark {
+  div, p, span, strong, h1, h2, h3, h4, h5 {
+    color: #FFFFFF;
+  }
+}
+
+
+p {
+  font-size: 14px;
+  line-height: 37.2px;
+}

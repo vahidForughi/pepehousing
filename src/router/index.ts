@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import BecomeAHostView from "@/views/BecomeAHostView.vue";
+import HowItWorks from "@/views/HowItWorks.vue";
 
 Vue.use(VueRouter)
 
@@ -9,6 +11,16 @@ const routes: Array<RouteConfig> = [
     path: '/',
     name: 'home',
     component: HomeView
+  },
+  {
+    path: '/become-a-host',
+    name: 'home',
+    component: BecomeAHostView
+  },
+  {
+    path: '/how-it-works',
+    name: 'home',
+    component: HowItWorks
   },
   {
     path: '/about',
