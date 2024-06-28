@@ -12,6 +12,7 @@ export default new Vuetify({
                 "primary-2": "#E6F8F9",
                 "secondary-1": "#626687",
                 "secondary-2": "#3C3F52",
+                "secondary-3": "#5E5873",
                 "gray-1": "#FAFAFA",
                 "gray-2": "#D9D9D9",
                 "warning": "#FFE699",

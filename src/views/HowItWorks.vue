@@ -46,7 +46,7 @@ export default Vue.extend({
 <template>
   <default-layout>
 
-    <div class="text-center">
+    <div class="text-center break-keep">
 
 <!--      <v-img-->
 <!--          alt="how-it-works-banner"-->
@@ -56,10 +56,10 @@ export default Vue.extend({
 <!--          class="absolute top-0 left-0 z-0"-->
 <!--      />-->
 
-      <v-container fluid>
+      <v-container fluid class="px-0 md:px-inherit">
 
         <div class="grid grid-cols-6 gap-4 py-12 justify-center items-center">
-          <div class="col-span-2 order-last">
+          <div class="col-span-6 md:col-span-2 md:order-last">
             <v-img
                 alt="how-it-works-banner"
                 contain
@@ -67,17 +67,17 @@ export default Vue.extend({
                 width="100%"
             />
           </div>
-          <div class="col-span-4 pa-6 self-center">
-            <div class="page-title sticky z-100">
+          <div class="col-span-6 md:col-span-4 pa-6 self-center">
+            <div class="text-2xl md:text-6xl font-bold text-center md:text-left leading-9 md:leading-20 tracking-widest sticky z-100">
               Book Your Dream Apartment with
-              <span class="inline-grid">
+              <div class="inline-grid">
                 3 Easy
                 <v-img
                     alt="3-easy"
                     src="@/assets/images/vectors/underline_04.svg"
-                    width="80%"
+                    width="70%"
                 />
-              </span>
+              </div>
               <span>
                 Steps!
               </span>
@@ -85,14 +85,15 @@ export default Vue.extend({
           </div>
         </div>
 
-        <strong class="primary--text text-2xl text-center py-6">How it Works</strong>
+
+        <strong class="primary--text text-lg md:text-2xl font-bold text-center py-6 block">How it Works</strong>
 
         <div
-          class="grid grid-cols-6  justify-center items-start justify-items-center"
+          class="grid grid-cols-6 gap-4 justify-center md:justify-start items-center md:items-start justify-items-center"
           v-for="(workStep, index) in workSteps"
           :key="index"
         >
-          <div :class="`col-span-3 self-center ${index%2 > 0 ? 'order-first': 'order-last'}`">
+          <div :class="`col-span-6 md:col-span-3 self-center order-first ${index%2 > 0 ? 'md:order-first': 'md:order-last'}`">
             <v-img
                 :alt="workStep.title"
                 contain
@@ -100,11 +101,11 @@ export default Vue.extend({
                 height="80%"
             />
           </div>
-          <div :class="`col-span-3 px-8 text-start relative ${index%2 > 0 ? 'order-last border-l-4 -ml-1': 'order-first border-r-4'} border-dashed border-orange-400`">
+          <div :class="`col-span-6 md:col-span-3 px-0 md:px-inherit text-center md:text-start relative order-first ${index%2 > 0 ? 'md:order-last md:border-l-4 md:-ml-1': 'md:order-first md:border-r-4'} border-dashed border-orange-400`">
             <v-avatar
               size="62"
               color="white"
-              :class="`absolute top-0 ${index%2 > 0 ? '-left-8': '-right-8'}`"
+              :class="`hidden md:visible absolute top-0 ${index%2 > 0 ? '-left-8': '-right-8'}`"
             >
               <span class="primary--text">
                 {{ index + 1 }}
@@ -114,18 +115,19 @@ export default Vue.extend({
               flat
               color="transparent"
             >
-              <v-card-title class="text-3xl font-semibold">
+              <span class="md:hidden text-xs md:text-sm italic primary--text">Step {{ index + 1 }}</span>
+              <v-card-title class="text-lg md:text-3xl justify-center md:justify-start md:text-start font-bold md:font-semibold pa-1 md:pa-4">
                 {{ workStep.title }}
               </v-card-title>
 
               <v-card-text>
-                <p class="text-lg">{{ workStep.description }}</p>
+                <p class="text-base font-normal md:text-lg">{{ workStep.description }}</p>
 
                 <v-card
                   flat
                   color="white"
                 >
-                  <v-card-title class="text-lg font-semibold">
+                  <v-card-title class="text-base md:text-lg font-semibold justify-center md:justify-start md:text-start">
                     {{ workStep.extra.title }}
                   </v-card-title>
 
@@ -143,14 +145,13 @@ export default Vue.extend({
 
       </v-container>
 
-
       <v-card
           flat
           color="rgba(255, 217, 100, 0.1)"
           class="my-10"
       >
 
-        <v-card-text class="contact-card pa-10">
+        <v-card-text class="text-lg md:text-2xl font-bold leading-7 md:leading-9 tracking-wider text-center secondary-2--text px-2 py-6 md:px-10 md:py-10">
           If you have any questions regarding our service please check our
           <a href="#" class="primary--text underline underline-offset-8">help section</a>
            our feel free to.
@@ -184,23 +185,6 @@ body {
 
 .border-orange-400 {
   border-color: rgba(255, 230, 153, 1);
-}
-
-.contact-card {
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 37.2px;
-  letter-spacing: 0.085em;
-  text-align: center;
-}
-
-
-.page-title {
-  font-size: 56px;
-  font-weight: 700;
-  line-height: 86.8px;
-  letter-spacing: 2.7px;
-  text-align: left;
 }
 
 </style>

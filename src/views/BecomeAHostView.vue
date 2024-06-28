@@ -1,19 +1,29 @@
 <script>
 import Vue from 'vue'
 import DefaultLayout from "@/layouts/DefaultLayout.vue";
+// import Swiper, { Pagination } from 'swiper';
+// import 'swiper/css'
+// import 'swiper/css/pagination'
+// import { Pagination } from 'swiper'
+// import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
+// import 'swiper/css'
+// import 'swiper/css/pagination'
 
 export default Vue.extend({
   name: 'BecomeAHostView',
 
   components: {
     DefaultLayout,
+    // Swiper,
+    // SwiperSlide
   },
 
   data() {
     return {
+      // swiperModules: [Pagination],
       customerWordsWindow: {
         length: 3,
-        current: 0,
+        current: 1,
       },
       signupForm: {
         data: {
@@ -106,19 +116,6 @@ export default Vue.extend({
           }
         },
         {
-          content: "Renting to foreign students is a very interesting alternative to student rentals. " +
-              "Although the rental periods may be somewhat shorter, proper management of bookings " +
-              "and optimal preparation of the offer can provide very attractive rental income, " +
-              "often higher than from standard residential rentals. Pepe Housing is a company that works with universities to " +
-              "efficiently connect local real estate listings with incoming students",
-          sender: {
-            fullname: "Robert Kuliga",
-            introduce: "Vice President of the Board of Directors of the Mieszkanicznik Association",
-            gender: "male",
-            avatar: "customer-2.png",
-          }
-        },
-        {
           content: "For those who own an apartment for rent, I highly recommend working with Pepe Housing." +
               "This company provides a professional service, handling all formal and settlement issues in a timely manner." +
               "Pepe Housing offers a very attractive rate of return on investment." +
@@ -131,6 +128,19 @@ export default Vue.extend({
             introduce: "Warsaw",
             gender: "female",
             avatar: "customer-1.png",
+          }
+        },
+        {
+          content: "Renting to foreign students is a very interesting alternative to student rentals. " +
+              "Although the rental periods may be somewhat shorter, proper management of bookings " +
+              "and optimal preparation of the offer can provide very attractive rental income, " +
+              "often higher than from standard residential rentals. Pepe Housing is a company that works with universities to " +
+              "efficiently connect local real estate listings with incoming students",
+          sender: {
+            fullname: "Robert Kuliga",
+            introduce: "Vice President of the Board of Directors of the Mieszkanicznik Association",
+            gender: "male",
+            avatar: "customer-2.png",
           }
         },
       ],
@@ -210,7 +220,43 @@ export default Vue.extend({
     }
   },
 
+  computed: {
+    columns() {
+      if (this.$vuetify.breakpoint.xl) {
+        return 4;
+      }
+
+      if (this.$vuetify.breakpoint.lg) {
+        return 3;
+      }
+
+      if (this.$vuetify.breakpoint.md) {
+        return 2;
+      }
+
+      return 1;
+    }
+  },
+
   mounted() {
+    // new Swiper('.swiper', {
+    //   modules: [Pagination],
+    //   loop: true,
+    //   pagination: {
+    //     el: '.swiper-pagination',
+    //     clickable: true,
+    //   },
+    //   spaceBetween: 30,
+    //   autoResize: false,
+    //   // visibilityFullFit: true,
+    //   slidesPerView: 3,
+    //   // breakpoints: {
+    //   //   640: {
+    //   //     slidesPerView: 3,
+    //   //   },
+    //   // },
+    // })
+
     this.$set(this, 'customerWordsHeight', Math.max(...this.$refs.customerWordsCard.map(function (c) {
       return c.clientHeight
     })) + 'px')
@@ -280,12 +326,13 @@ export default Vue.extend({
               </v-card-text>
 
               <v-card-text class="my-10">
-                <div class="grid grid-cols-6 md:gap-12 gap-4 justify-around">
+                <div class="grid grid-cols-12 md:gap-16 gap-4 justify-around">
                   <div
                       v-for="(statistic, index) in statistics"
                       :key="index"
-                      :class="`col-start-0 col-span-2 md:col-span-2 pa-3 md:pa-6 rounded-5xl statistic-card  ${index === 0 ? '' : ''} ${index === statistics.length - 1 ? 'col-span-5' : 'col-span-2'}`"
+                      :class="`${statistics.length%2 > 0 && index === statistics.length - 1 ? 'col-start-4' : '' } col-span-6 md:col-start-0 md:col-span-4 pa-3 md:pa-6 rounded-5xl statistic-card`"
                   >
+<!--                    ${index === statistics.length - 1 ? 'col-span-5' : 'col-span-2'}`-->
                     <span class="font-extrabold text-2xl md:text-5xl whitespace-nowrap flex place-content-center">{{ statistic.title }}</span>
                     <br/>
                     <span class="text-xs md:text-sm whitespace-nowrap flex place-content-center">{{ statistic.caption }}</span>
@@ -296,22 +343,29 @@ export default Vue.extend({
           </div>
         </div>
 
-        <v-card
+    </v-container>
+
+    <v-container fluid>
+
+      <v-card
           flat
           color="gray-1"
-          class="inline-block justify-center rounded-xl pa-6 my-10"
+          class="inline-block justify-center rounded-xl px-2 py-6 sm:pa-6 my-10"
         >
-          <v-card-title class="uppercase text-2xl font-semibold break-keep px-20">
+          <v-card-title class="uppercase text-base md:text-2xl font-semibold break-keep md:px-20 px-0 py-2">
             Official erusmus student network partnet for accommodation for international students in poland
           </v-card-title>
           <v-card-title>
-            <v-img
-                alt="ieesn"
-                contain
-                src="@/assets/images/ieesn.png"
-                transition="scale-transition"
-                height="135"
-            />
+            <div class="grid grid-cols-8 justify center">
+              <div class="col-span-8 sm:col-start-3 sm:col-span-4 px-6">
+                <v-img
+                    alt="ieesn"
+                    contain
+                    src="@/assets/images/ieesn.png"
+                    transition="scale-transition"
+                />
+              </div>
+            </div>
           </v-card-title>
         </v-card>
 
@@ -319,17 +373,17 @@ export default Vue.extend({
           flat
           class="grid justify-items-center my-10"
         >
-          <v-card-title class="mb-12 text-4xl">
+          <v-card-title class="mb-12 text-lg font-semibold md:text-4xl break-keep">
             Why should you rent through Pepe Housing?
           </v-card-title>
           <v-card-text>
-            <div class="grid grid-cols-3 gap-4">
+            <div class="grid grid-cols-6 gap-4">
               <v-card
                 v-for="(rentCause, index) in rentCauses"
                 :key="`rent-cause-${index}`"
                 flat
                 outlined
-                class="col-span-1 rent-cause-card pt-2 pb-3 px-6"
+                class="col-span-6 md:col-span-2 rent-cause-card pt-2 pb-3 px-6"
               >
                 <v-card-text>
                   <v-img
@@ -340,7 +394,7 @@ export default Vue.extend({
                       width="64"
                       class="mx-auto"
                   />
-                  <span class="text-2xl font-semibold pt-3 leading-10 d-block">{{ rentCause.title }}</span>
+                  <span class="text-base md:text-2xl font-semibold pt-3 leading-10 d-block">{{ rentCause.title }}</span>
                 </v-card-text>
               </v-card>
             </div>
@@ -356,29 +410,23 @@ export default Vue.extend({
       >
         <v-card-text>
           <div class="grid grid-cols-4 justify-center">
-            <div class="col-start-2 col-span-2">
+            <div class="col-start-0 col-span-4 md:col-start-2 md:col-span-2">
               <v-card
                 flat
                 color="transparent"
-                class="relative pa-6"
+                class="px-1 py-6 md:pa-6"
               >
-                <v-img
-                    alt="attention"
-                    class="absolute right-0 top-0"
-                    contain
-                    src="@/assets/images/vectors/highlight_05.svg"
-                    transition="scale-transition"
-                    width="46"
-                />
-                <v-img
-                    alt="attention"
-                    class="rotate-270 absolute left-0 top-0"
-                    contain
-                    src="@/assets/images/vectors/highlight_05.svg"
-                    transition="scale-transition"
-                    width="46"
-                />
-                <v-card-title class="text-3xl font-semibold break-keep mb-5">
+                <v-card-title class="relative text-2xl md:text-3xl font-semibold break-keep mb-5 pa-2 md:pa-4">
+                  <v-img
+                      alt="attention"
+                      class="w-5 md:w-11 absolute -right-2 -top-2 md:-right-4 md:-top-4"
+                      src="@/assets/images/vectors/highlight_05.svg"
+                  />
+                  <v-img
+                      alt="attention"
+                      class="w-5 md:w-11 rotate-270 absolute -left-2 -top-2 md:-left-4 md:-top-4"
+                      src="@/assets/images/vectors/highlight_05.svg"
+                  />
                   We Will Help You Find Great Students Who Will Soon Become Your Tenants
                 </v-card-title>
                 <v-card-text>
@@ -386,7 +434,7 @@ export default Vue.extend({
                       dark
                       color="primary"
                       elevation="0"
-                      class="text-xl px-8"
+                      class="text-xl w-full md:w-auto rounded-lg px-8"
                   >
                     ADD PROPERTY
                   </v-btn>
@@ -397,38 +445,44 @@ export default Vue.extend({
         </v-card-text>
       </v-card>
 
-      <v-container fluid>
+      <v-container fluid class="px-0 md:px-auto">
+
+<!--        <swiper :modules="swiperModules" :slides-per-view="1" :pagination="{ clickable: true }">-->
+<!--          <swiper-slide class="w-full h-full primary">Slide 1</swiper-slide>-->
+<!--          <swiper-slide class="w-full h-full primary">Slide 2</swiper-slide>-->
+<!--          <swiper-slide class="w-full h-full primary">Slide 3</swiper-slide>-->
+<!--        </swiper>-->
 
         <v-card
           flat
           class="my-10 grid justify-items-center"
         >
-          <span class="text-sm primary--text">Testimonial</span>
-          <v-card-title class="text-3xl mb-6">
+          <span class="text-xs md:text-sm italic primary--text">Testimonial</span>
+          <v-card-title class="text-lg md:text-3xl mb-6">
             What Our Customer Say
           </v-card-title>
 
           <v-card
-            flat
-            class="grid justify-items-center relative py-4"
+              flat
+              class="grid justify-items-center relative py-4"
           >
             <v-card-text class="pb-8">
-              <div class="gray-1 w-full h-full absolute top-0 left-0 z-0 scale-x-90"></div>
+              <div class="gray-1 w-full h-full absolute top-0 left-0 z-0 md:scale-x-90 md-scale-x-90"></div>
               <v-window v-model="customerWordsWindow.current" class="overflow-visible">
-                <v-window-item
-                    v-for="n in customerWordsWindow.length"
-                    :key="`card-${n}`"
-                    class="grid grid-cols-3 gap-4"
-                >
-                  <v-card
+                <div class="grid grid-cols-6 gap-4">
+                  <v-window-item
                       v-for="(comment, index) in comments"
                       :key="`comment-${index}`"
-                      color="white"
-                      class="col-span-1 customer-words-card pa-2"
+                      :class="`col-span-6 md:col-span-2 ${index < customerWordsWindow.current ? 'order-last' : ''} md:!block md-block-important`"
+                      :eager="true"
                   >
+                    <v-card
+                        color="white"
+                        class="customer-words-card h-full rounded-2xl pa-1 md:pa-2"
+                    >
                       <v-card-text class="block text-center" ref="customerWordsCard" :style="`height: ${customerWordsHeight}`">
-                        <p>“</p>
-                        <p>
+                        <p class="text-xl">“</p>
+                        <p class="text-sm md:text-base font-normal leading-6 tracking-tight">
                           {{ comment.content }}
                         </p>
                       </v-card-text>
@@ -444,8 +498,9 @@ export default Vue.extend({
                           <span class="block text-base leading-6 tracking-wider font-medium py-2 px-4">{{ comment.sender.fullname }}, {{ comment.sender.introduce }}</span>
                         </div>
                       </v-card-text>
-                  </v-card>
-                </v-window-item>
+                    </v-card>
+                  </v-window-item>
+                </div>
               </v-window>
             </v-card-text>
 
@@ -468,7 +523,7 @@ export default Vue.extend({
                       :color="active ? 'primary' : 'gray-2'"
                       class="px-3"
                   >
-                    <v-icon>mdi-record</v-icon>
+                    <v-icon :color="active ? 'primary' : 'gray-2'">mdi-record</v-icon>
                   </v-btn>
                 </v-item>
               </v-item-group>
@@ -476,7 +531,6 @@ export default Vue.extend({
           </v-card>
 
         </v-card>
-
 
         <v-card
             flat
@@ -486,13 +540,13 @@ export default Vue.extend({
           </v-card-title>
           <v-card-text>
             <div class="grid grid-cols-7 gap-3">
-              <div class="col-span-1">
+              <div class="col-span-7 md:col-span-1">
                 <v-card
                     flat
                     color="primary-2"
                     class="rounded-xl pa-6 h-full grid align-content-center justify-center"
                 >
-                  <v-card-text class="text-4xl rotate-270 whitespace-nowrap">
+                  <v-card-text class="text-lg md:text-4xl md-rotate-270 whitespace-nowrap">
                     <strong class="uppercase">
                       How does it works
                     </strong>
@@ -505,24 +559,24 @@ export default Vue.extend({
                   </v-card-text>
                 </v-card>
               </div>
-              <div class="col-span-6">
+              <div class="col-span-7 md:col-span-6">
                 <div class="grid grid-cols-6 gap-3">
                   <v-card
                     v-for="(workStep, index) in workSteps"
                     :key="index"
                     elevation="0"
                     outlined
-                    class="col-span-3 rounded-xl work-step-card"
+                    class="col-span-6 md:col-span-3 rounded-xl work-step-card"
                   >
                     <v-card-text class="text-start" ref="workStepsCard" :style="`height: ${workStepsHeight}`">
                       <v-avatar
                           color="primary-2"
                           size="54"
-                          class="primary--text mb-2 text-3xl font-extrabold"
+                          class="primary--text mb-2 text-lg md:text-3xl font-extrabold"
                       >
                         {{ index + 1 }}
                       </v-avatar>
-                      <p>{{ workStep.description }}</p>
+                      <p class="text-base md:text-lg font-normal">{{ workStep.description }}</p>
                     </v-card-text>
                   </v-card>
                 </div>
@@ -533,18 +587,19 @@ export default Vue.extend({
 
         <v-card
           flat
-          class="px-20"
+          class="md:px-20 px-0"
         >
-          <v-card-title class="justify-center mb-10">
-            Sign Up
+          <v-card-title class="justify-center md:mb-10">
+            <strong class="text-4xl font-semibold hidden md:visible">Sign Up</strong>
+            <strong class="text-lg font-semibold md:hidden">Contact Details</strong>
           </v-card-title>
-          <v-card-text class="signup-card py-32 px-20">
-            <v-form v-model="signupForm.valid" class="grid grid-cols-4 gap-4 text-start text-xl">
-              <div class="col-span-4">
-                <strong class="text-lg">Personal Info</strong>
+          <v-card-text class="signup-card py-6 px-4 md:py-32 md:px-20">
+            <v-form v-model="signupForm.valid" class="grid grid-cols-6 gap-4 text-start text-sm font-semibold md:text-base md:font-bold">
+              <div class="col-span-6">
+                <strong>Personal Info</strong>
               </div>
-              <div class="col-span-2">
-                <label class="text-sm">First Name</label>
+              <div class="col-span-6 md:col-span-3">
+                <label class="secondary-3--text text-sm font-normal">First Name</label>
                 <v-text-field
                     v-model="signupForm.data.first_name"
                     :rules="signupForm.rules.first_name"
@@ -552,10 +607,11 @@ export default Vue.extend({
                     dense
                     outlined
                     required
+                    hide-details="auto"
                 ></v-text-field>
               </div>
-              <div class="col-span-2">
-                <label class="text-sm">Surname</label>
+              <div class="col-span-6 md:col-span-3">
+                <label class="text-sm font-normal">Surname</label>
                 <v-text-field
                     v-model="signupForm.data.surname"
                     :rules="signupForm.rules.surname"
@@ -563,13 +619,14 @@ export default Vue.extend({
                     dense
                     outlined
                     required
+                    hide-details="auto"
                 ></v-text-field>
               </div>
-              <div class="col-span-4">
-                <strong class="text-lg">Contact Info</strong>
+              <div class="col-span-6">
+                <strong>Contact Info</strong>
               </div>
-              <div class="col-span-2">
-                <label class="text-sm">Email</label>
+              <div class="col-span-6 md:col-span-3">
+                <label class="secondary-3--text text-sm font-normal">Email</label>
                 <v-text-field
                     v-model="signupForm.data.email"
                     :rules="signupForm.rules.email"
@@ -577,10 +634,11 @@ export default Vue.extend({
                     dense
                     outlined
                     required
+                    hide-details="auto"
                 ></v-text-field>
               </div>
-              <div class="col-span-2">
-                <label class="text-sm">Phone</label>
+              <div class="col-span-6 md:col-span-3">
+                <label class="text-sm font-normal">Phone</label>
                 <v-text-field
                     v-model="signupForm.data.phone"
                     :rules="signupForm.rules.phone"
@@ -588,11 +646,12 @@ export default Vue.extend({
                     dense
                     outlined
                     required
+                    hide-details="auto"
                 ></v-text-field>
               </div>
-              <div class="col-span-2">
-                <strong class="text-lg block pb-3">In witch city do you own your properties?</strong>
-                <label class="text-sm">Cities (You can choose more than one)</label>
+              <div class="col-span-6 md:col-span-3">
+                <strong class="block pb-3">In witch city do you own your properties?</strong>
+                <label class="secondary-3--text text-sm font-normal">Cities (You can choose more than one)</label>
                 <v-select
                     :items="cities"
                     item-text="name"
@@ -603,11 +662,12 @@ export default Vue.extend({
                     dense
                     outlined
                     required
+                    hide-details="auto"
                 ></v-select>
               </div>
-              <div class="col-span-2">
-                <strong class="text-lg block pb-3">How many properties do you own?</strong>
-                <label class="text-sm">Number Of Properties</label>
+              <div class="col-span-6 md:col-span-3">
+                <strong class="block pb-3">How many properties do you own?</strong>
+                <label class="secondary-3--text text-sm font-normal">Number Of Properties</label>
                 <v-select
                     :items="propertyNumbers"
                     item-text="title"
@@ -617,21 +677,21 @@ export default Vue.extend({
                     dense
                     outlined
                     required
+                    hide-details="auto"
                 ></v-select>
               </div>
-              <div class="col-span-4">
-                <p class="leading-5">Pepe Housing sp. z o.o. Warszawa (00-052), ul.
+              <div class="col-span-6">
+                <p class="text-xs md:text-sm font-normal leading-5">Pepe Housing sp. z o.o. Warszawa (00-052), ul.
                   Świętokrzyska 18, lok 405 is the Controller of your personal data is Pepe Housing sp.
-                  <v-btn text color="primary" class="capitalize font-normal pa-0" to="#">… Read More</v-btn>
+                  <a href="#" class="capitalize primary--text text-xs font-semibold pa-0">… Read More</a>
                 </p>
               </div>
-              <div class="col-span-4 text-end">
+              <div class="col-span-6 text-end">
                 <v-btn
                     elevation="0"
                     dark
                     color="primary"
-                    width="170px"
-                    class="rounded-lg text-xl px-8"
+                    class="w-full md:w-auto rounded-lg text-xl px-16"
                     to="#"
                 >
                   Send
@@ -645,7 +705,7 @@ export default Vue.extend({
           flat
           class="my-10"
         >
-          <v-card-title class="justify-center mb-10">
+          <v-card-title class="justify-center text-lg md:text-3xl font-seibold mb-3 md:mb-10">
             Your questions, answered
           </v-card-title>
           <v-card-text>
@@ -653,15 +713,15 @@ export default Vue.extend({
                 v-model="faqPanel"
                 accordion
                 multiple
-                class="grid grid-cols-4 gap-4"
+                class="grid grid-cols-6 gap-4"
             >
               <v-expansion-panel
                   v-for="(faq, index) in faqs"
                   :key="`faq-${index}`"
-                  class="col-span-2 gray-1 secondary-1--text"
+                  class="col-span-6 md:col-span-3 gray-1 secondary-1--text rounded"
               >
-                <v-expansion-panel-header>{{ faq.title }}</v-expansion-panel-header>
-                <v-expansion-panel-content class="text-start elevation-0">{{ faq.description }}</v-expansion-panel-content>
+                <v-expansion-panel-header class="text-base font-semibold md:text-lg">{{ faq.title }}</v-expansion-panel-header>
+                <v-expansion-panel-content class="text-start text-xs font-normal md:text-base elevation-0">{{ faq.description }}</v-expansion-panel-content>
               </v-expansion-panel>
             </v-expansion-panels>
           </v-card-text>
@@ -699,6 +759,10 @@ export default Vue.extend({
   opacity: 0;
 }
 
+.block-important {
+  display: block !important;
+}
+
 .v-text-field--outlined >>> fieldset {
   border-color: rgba(216, 214, 222, 1);
 }
@@ -722,7 +786,6 @@ export default Vue.extend({
 
 .statistic-card {
   border-radius: 32px;
-  padding: 24px 53px 24px 53px;
   box-shadow: 0px 11px 48px 0px rgba(51, 51, 51, 0.06),
               0px 11px 48px 0px rgba(51, 51, 51, 0.06)
               !important;
@@ -734,17 +797,10 @@ export default Vue.extend({
 }
 
 .customer-words-card {
-  border-radius: 12px;
+  border-radius: 16px;
   box-shadow: 0px 2px 20px 0px rgba(23, 58, 110, 0.06),
               0px 29px 18px 0px rgba(20, 18, 103, 0.03)
               !important;
-}
-.customer-words-card p {
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 24px;
-  letter-spacing: -0.01em;
-  text-align: center;
 }
 .customer-words-back {
   height: 100%;
@@ -785,6 +841,20 @@ export default Vue.extend({
     font-weight: 900;
     line-height: 34.1px;
     letter-spacing: 2.7px;
+  }
+}
+
+@media only screen and (min-width: 640px) {
+  .md-rotate-270 {
+    transform: rotate(270deg);
+  }
+
+  .md-scale-x-90 {
+    transform: scaleX(0.9);
+  }
+
+  .md-block-important {
+    display: block !important;
   }
 }
 

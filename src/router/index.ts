@@ -14,12 +14,12 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: '/become-a-host',
-    name: 'home',
+    name: 'become-a-host',
     component: BecomeAHostView
   },
   {
     path: '/how-it-works',
-    name: 'home',
+    name: 'how-it-works',
     component: HowItWorks
   },
   {

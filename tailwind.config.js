@@ -479,7 +479,7 @@ module.exports = {
     },
     letterSpacing: {
       tighter: '-0.05em',
-      tight: '-0.025em',
+      tight: '-0.01em',
       normal: '0em',
       wide: '0.025em',
       wider: '0.05em',
@@ -500,6 +500,7 @@ module.exports = {
       8: '2rem',
       9: '2.25rem',
       10: '2.5rem',
+      20: '5rem'
     },
     listStyleType: {
       none: 'none',
